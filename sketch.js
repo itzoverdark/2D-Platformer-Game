@@ -106,7 +106,7 @@ function draw()
     fill(255);
     text("Your score is: "+game_score,cameraPosX + 10,30);
 
-    fill(255);
+    fill(255,255,255,80);
     noStroke();
     for (var i=0; i < numRain; i++)
     {
