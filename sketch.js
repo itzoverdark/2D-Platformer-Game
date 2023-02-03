@@ -51,7 +51,7 @@ var rainDirectionx;
 var rainDirectiony;
 var numRain;
 
-
+var bg;
 
 function preload()
 {
@@ -76,6 +76,7 @@ function preload()
 
 function setup()
 {
+    bg = loadImage('vecteezy_alien-planet-game-background_7357531.jpg');
 	createCanvas(1024, 576);
 	floorPos_y = height * 3/4;
     lives = 3;
@@ -84,10 +85,10 @@ function setup()
 
 function draw()
 {
-
+    background(bg);
 	///////////DRAWING CODE//////////
     
-	background(155,155,250); //fill the sky blue
+	// background(155,155,250); //fill the sky blue
     
     cameraPosX = gameChar_x - 600;
     
