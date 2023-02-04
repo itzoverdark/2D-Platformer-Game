@@ -77,7 +77,7 @@ function preload()
 function setup()
 {
     bg = loadImage('vecteezy_alien-planet-game-background_6316482.jpg');
-	createCanvas(1024, 576);
+	createCanvas(1224, 576);
 	floorPos_y = height * 3/4;
     lives = 3;
     startGame();
@@ -94,11 +94,11 @@ function draw()
     
     //draw some green ground
 	noStroke();
-	fill(0,155,0);
+	fill(82, 60, 201);
 	rect(0, floorPos_y, width, height - floorPos_y); 
-    fill(118,85,43);
+    fill(141, 109, 194);
     rect(0, floorPos_y + 20, width, height - floorPos_y); 
-    //door
+
     
 
     push();
@@ -122,8 +122,8 @@ function draw()
 
     
     
-    stroke(255);
-    fill(255, 215, 0);
+    stroke(53, 52, 97);
+    fill(144, 101, 168);
     rect(-815,212,120,220);
     fill(127, 0, 255);
     stroke(0);
@@ -166,31 +166,55 @@ function draw()
     
                 stroke(0,255,0);
                 fill(0,255,0);
-                ellipse(cameraPosX + 30,60,20,20);
+                beginShape();
+                vertex(cameraPosX + 30, 60);
+                bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+                bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
+                endShape();
                 
                 stroke(0,255,0);
                 fill(0,255,0);
-                ellipse(cameraPosX + 60,60,20,20);
+                beginShape();
+                vertex(cameraPosX + 60, 60);
+                bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
+                bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
+                endShape();
                 
                 stroke(0,255,0);
                 fill(0,255,0);
-                ellipse(cameraPosX + 90 ,60,20,20);
+                beginShape();
+                vertex(cameraPosX + 90, 60);
+                bezierVertex(cameraPosX + 90 - 20 / 2, 60 - 20 / 2, cameraPosX + 90 - 20, 60 + 20 / 3, cameraPosX + 90, 60 + 20);
+                bezierVertex(cameraPosX + 90 + 20, 60 + 20 / 3, cameraPosX + 90 + 20 / 2, 60 - 20 / 2, cameraPosX + 90, 60);
+                endShape();
             }
             if (lives == 2)
                 {
                     stroke(255, 95, 31);
                     fill(255, 95, 31);
-                    ellipse(cameraPosX + 30,60,20,20);
+                    beginShape();
+                    vertex(cameraPosX + 30, 60);
+                    bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+                    bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
+                    endShape();
                     
                     stroke(255, 95, 31);
                     fill(255, 95, 31);
-                    ellipse(cameraPosX + 60,60,20,20);
+                    beginShape();
+                    vertex(cameraPosX + 60, 60);
+                    bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
+                    bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
+                    endShape();
                 }
             if (lives == 1)
                 {
                     stroke(255,0,0);
                     fill(255,0,0);
-                    ellipse(cameraPosX + 30,60,20,20);
+                    beginShape();
+                    vertex(cameraPosX + 30, 60);
+                    bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+                    bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
+                    endShape();
                 }
         }
     for (var i=0; i<collectables.length; i++)
@@ -485,14 +509,14 @@ function drawClouds()
     for (var i=0; i < clouds_x.length;i++)
     {
         noStroke();
-        fill(195);
+        fill(195,195,195);
         ellipse(clouds_x[i] - 60 * cloudSpace,clouds_y,80 * cloudSpace,80 * cloudSpace);
         ellipse(clouds_x[i] - 110 * cloudSpace,clouds_y,60 * cloudSpace,60 * cloudSpace);
         ellipse(clouds_x[i],clouds_y,100 * cloudSpace,100 * cloudSpace);
         ellipse(clouds_x[i] + 60 * cloudSpace,clouds_y,80 * cloudSpace,80 * cloudSpace);
         ellipse(clouds_x[i] + 110 * cloudSpace,clouds_y,60 * cloudSpace,60 * cloudSpace);
 
-        fill(240);
+        fill(210,210,210);
         ellipse(clouds_x[i] - 60 * cloudSpace,clouds_y,70 * cloudSpace,70 * cloudSpace);
         ellipse(clouds_x[i] - 110 * cloudSpace,clouds_y,50 * cloudSpace,50 * cloudSpace);
         ellipse(clouds_x[i],clouds_y,100 * cloudSpace,90 * cloudSpace);
@@ -514,7 +538,7 @@ function drawMountains()
                 mountain_x[i] + 130 + 150, mountain_y,
 		        mountain_x[i] + 150 + (130 / 2), mountain_y - 200);
 
-        fill(110);
+        fill(99, 73, 143);
         triangle(mountain_x[i] + 5, mountain_y,
             mountain_x[i] + 220, mountain_y,
             mountain_x[i] + (230 / 2), mountain_y - 300);
@@ -645,7 +669,7 @@ function checkPlayerDie()
         lives -= 1;
         isPlummeting = false;
         var gamecharacterXpos = gameChar_x
-        if(gamecharacterXpos >= 150 && gamecharacterXpos <= 400)
+        if(gamecharacterXpos >= 150 && gamecharacterXpos <= 460)
         {
             gameChar_x = 120;
             gameChar_y = floorPos_y
@@ -698,7 +722,7 @@ function startGame()
         width: 130
     };
     
-    tree_x = [80,420,760,1100];
+    tree_x = [80,470,1650,1100];
     tree_y = floorPos_y;
     
     clouds_x = [-250,200,600,1000,1700]
