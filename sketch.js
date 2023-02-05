@@ -156,6 +156,7 @@ function draw()
 
     for (var j=0; j < canyons.length; j++)
         {
+            
             drawCanyon(canyons[j]);
             checkCanyon(canyons[j]);
         }
@@ -529,7 +530,7 @@ function drawMountains()
 {
     for (var i=0; i < mountain_x.length; i++)
     {
-        fill(130);
+        fill(51,51,153);
         triangle(mountain_x[i], mountain_y,
 		         mountain_x[i] + 230, mountain_y,
 		         mountain_x[i] + (230 / 2), mountain_y - 320);
@@ -609,22 +610,64 @@ function checkCollectable(t_collectable)
 
 function drawCanyon(t_canyon)
 {
-    fill(20);
+    fill(150, 120, 271);
     noStroke();
     rect(t_canyon.x_pos ,432 ,t_canyon.width - 50 ,143);
-    fill(255,255,0);
-    rect(t_canyon.x_pos ,542 ,t_canyon.width - 50 ,143);
-    fill(226,88,34);
-    rect(t_canyon.x_pos ,552 ,t_canyon.width - 50 ,143);
-    fill(255,0,0);
-    rect(t_canyon.x_pos ,569 ,t_canyon.width - 50 ,143);
-    //ground on top of canyon
+    stroke(0);
     fill(100);
+    
+    if (t_canyon.width == 170)
+    {
+        triangle(t_canyon.x_pos,576,t_canyon.x_pos+30,576,t_canyon.x_pos+15,530);
+        triangle(t_canyon.x_pos+30,576,t_canyon.x_pos+60,576,t_canyon.x_pos+45,530);
+        triangle(t_canyon.x_pos+60,576,t_canyon.x_pos+90,576,t_canyon.x_pos+75,530);
+        triangle(t_canyon.x_pos+90,576,t_canyon.x_pos+120,576,t_canyon.x_pos+105,530);
+         
+    }
+    else if (t_canyon.width == 250)
+    {
+        triangle(t_canyon.x_pos,576,t_canyon.x_pos+30,576,t_canyon.x_pos+15,530);
+        triangle(t_canyon.x_pos+30,576,t_canyon.x_pos+60,576,t_canyon.x_pos+45,530);
+        triangle(t_canyon.x_pos+60,576,t_canyon.x_pos+90,576,t_canyon.x_pos+75,530);
+        triangle(t_canyon.x_pos+90,576,t_canyon.x_pos+120,576,t_canyon.x_pos+105,530);
+        triangle(t_canyon.x_pos+120,576,t_canyon.x_pos+150,576,t_canyon.x_pos+135,530);
+        triangle(t_canyon.x_pos+150,576,t_canyon.x_pos+180,576,t_canyon.x_pos+165,530);
+        triangle(t_canyon.x_pos+180,576,t_canyon.x_pos+200,576,t_canyon.x_pos+200,530);
+    }
+    else if (t_canyon.width == 270)
+    {
+        triangle(t_canyon.x_pos,576,t_canyon.x_pos+30,576,t_canyon.x_pos+15,530);
+        triangle(t_canyon.x_pos+30,576,t_canyon.x_pos+60,576,t_canyon.x_pos+45,530);
+        triangle(t_canyon.x_pos+60,576,t_canyon.x_pos+90,576,t_canyon.x_pos+75,530);
+        triangle(t_canyon.x_pos+90,576,t_canyon.x_pos+120,576,t_canyon.x_pos+105,530);
+        triangle(t_canyon.x_pos+120,576,t_canyon.x_pos+150,576,t_canyon.x_pos+135,530);
+        triangle(t_canyon.x_pos+150,576,t_canyon.x_pos+180,576,t_canyon.x_pos+165,530);
+        triangle(t_canyon.x_pos+180,576,t_canyon.x_pos+210,576,t_canyon.x_pos+195,530);
+        triangle(t_canyon.x_pos+210,576,t_canyon.x_pos+220,576,t_canyon.x_pos+220,530);
+    }
+    else if (t_canyon.width == 500)
+    {
+        triangle(t_canyon.x_pos,576,t_canyon.x_pos+30,576,t_canyon.x_pos+15,530);
+        triangle(t_canyon.x_pos+30,576,t_canyon.x_pos+60,576,t_canyon.x_pos+45,530);
+        triangle(t_canyon.x_pos+60,576,t_canyon.x_pos+90,576,t_canyon.x_pos+75,530);
+        triangle(t_canyon.x_pos+90,576,t_canyon.x_pos+120,576,t_canyon.x_pos+105,530);
+        triangle(t_canyon.x_pos+120,576,t_canyon.x_pos+150,576,t_canyon.x_pos+135,530);
+        triangle(t_canyon.x_pos+150,576,t_canyon.x_pos+180,576,t_canyon.x_pos+165,530);
+        triangle(t_canyon.x_pos+180,576,t_canyon.x_pos+210,576,t_canyon.x_pos+195,530);
+        triangle(t_canyon.x_pos+210,576,t_canyon.x_pos+240,576,t_canyon.x_pos+225,530);
+        triangle(t_canyon.x_pos+240,576,t_canyon.x_pos+270,576,t_canyon.x_pos+255,530);
+        triangle(t_canyon.x_pos+270,576,t_canyon.x_pos+300,576,t_canyon.x_pos+285,530);
+        triangle(t_canyon.x_pos+300,576,t_canyon.x_pos+330,576,t_canyon.x_pos+315,530);
+        triangle(t_canyon.x_pos+330,576,t_canyon.x_pos+360,576,t_canyon.x_pos+345,530);
+        triangle(t_canyon.x_pos+360,576,t_canyon.x_pos+390,576,t_canyon.x_pos+375,530);
+        triangle(t_canyon.x_pos+390,576,t_canyon.x_pos+420,576,t_canyon.x_pos+405,530);
+        triangle(t_canyon.x_pos+420,576,t_canyon.x_pos+450,576,t_canyon.x_pos+435,530);
+    }
 }
 
 function checkCanyon(t_canyon)
 {
-    if(gameChar_x >= t_canyon.x_pos + 10 && gameChar_x < (t_canyon.x_pos + t_canyon.width - 60) && gameChar_y >= floorPos_y)
+    if(gameChar_x > t_canyon.x_pos + 10  && gameChar_x < (t_canyon.x_pos + t_canyon.width - 60) && gameChar_y >= floorPos_y)
     {
         isPlummeting = true;
     }
