@@ -53,6 +53,8 @@ var numRain;
 
 var bg;
 
+var mode = 0;
+
 function preload()
 {
     soundFormats('mp3','wav');
@@ -76,8 +78,10 @@ function preload()
 
 function setup()
 {
-    bg = loadImage('vecteezy_alien-planet-game-background_6316482.jpg');
-	createCanvas(1224, 576);
+    bg = loadImage('2109.w026.n002.828B.p1.828.jpg');
+    go = loadImage('90s.jpg');
+    sg = loadImage('enterr.jpg');
+	createCanvas(1124, 576);
 	floorPos_y = height * 3/4;
     lives = 3;
     startGame();
@@ -86,17 +90,22 @@ function setup()
 function draw()
 {
 
+
 	///////////DRAWING CODE//////////
-    
+    if (mode == 0)
+    {
+        background(sg);
+    }
+    if (mode == 1){
 	// background(155,155,250); //fill the sky blue
     background(bg);
     cameraPosX = gameChar_x - 600;
     
     //draw some green ground
 	noStroke();
-	fill(82, 60, 201);
+	fill(0, 170,0);
 	rect(0, floorPos_y, width, height - floorPos_y); 
-    fill(141, 109, 194);
+    fill(155,118,83);
     rect(0, floorPos_y + 20, width, height - floorPos_y); 
 
     
@@ -232,18 +241,19 @@ function draw()
 
     
 
-    
+     
     if (lives == 0)
     {
         gameSound.stop();
-        textSize(50);
-        fill(255,0,0);
-        noStroke();
-        text("Game Over", cameraPosX + 470,288);
-        textSize(30);
-        fill(0);
-        noStroke();
-        text("Press space to continue", cameraPosX + 460,310);
+        // textSize(50);
+        // fill(255,0,0);
+        // noStroke();
+        // text("Game Over", cameraPosX + 470,288);
+        // textSize(30);
+        // fill(0);
+        // noStroke();
+        // text("Press space to continue", cameraPosX + 460,310);
+        background(go);
         jumpSound.setVolume(0);
         return;
         
@@ -412,7 +422,7 @@ function draw()
     //Go down the canyan
     if (isPlummeting)
     {
-        gameChar_y += 3;
+        gameChar_y += 5;
     }
     
     //Return to the floor
@@ -427,6 +437,7 @@ function draw()
     }
     
 
+}
 }
 
 
@@ -475,8 +486,11 @@ function keyPressed()
         }
 
     }
-    
-    
+
+    if (keyCode == 13)
+    {
+        mode = 1;
+    }
 }
 
 function keyReleased()
@@ -679,16 +693,22 @@ function renderFlagpole()
     strokeWeight(5);
     stroke(180);
     line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 200);
-    fill(255,0,0);
+    fill(50,gameChar_x - 1450,0);
     noStroke();
 
     if (flagpole.isReached)
     {
-        rect(flagpole.x_pos, floorPos_y - 250, 50,50);
+        rect(flagpole.x_pos, floorPos_y - 200, 50,50);
     }
     else
     {
-        rect(flagpole.x_pos, floorPos_y - 50, 50,50)
+        if (gameChar_x <= 1900)
+        {
+            rect(flagpole.x_pos, floorPos_y + gameChar_x - 2100, 50,50);
+        }
+        else{
+            rect(flagpole.x_pos, floorPos_y - 200, 50,50);
+        }
     }
     pop();
 }
@@ -775,13 +795,13 @@ function startGame()
     mountain_x = [360,780];
     mountain_y = floorPos_y;
     
-    collectables = [{x_pos : -100  ,y_pos: 100, size : 50, isFound : false },
+    collectables = [{x_pos : -105  ,y_pos: 80, size : 50, isFound : false },
                     {x_pos : -400  ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : -800 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : -1000 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 100  ,y_pos: 100, size : 50, isFound : false },
-                    {x_pos : 400  ,y_pos: 100, size : 50, isFound : false},
-                    {x_pos : 820 ,y_pos: 100, size : 50, isFound : false},
+                    {x_pos : 400  ,y_pos: 90, size : 50, isFound : false},
+                    {x_pos : 810 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false}]
     
     
