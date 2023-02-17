@@ -245,14 +245,6 @@ function draw()
     if (lives == 0)
     {
         gameSound.stop();
-        // textSize(50);
-        // fill(255,0,0);
-        // noStroke();
-        // text("Game Over", cameraPosX + 470,288);
-        // textSize(30);
-        // fill(0);
-        // noStroke();
-        // text("Press space to continue", cameraPosX + 460,310);
         background(go);
         jumpSound.setVolume(0);
         return;
@@ -270,6 +262,7 @@ function draw()
         noStroke();
         text("Level complete. Press space to continue.", cameraPosX + 460,310);
         jumpSound.setVolume(0);
+        
         return;
     }else{
         fill(255,0,0);
@@ -435,11 +428,8 @@ function draw()
     else{
         isFalling = false;
     }
-    
-
 }
 }
-
 
 function keyPressed()
 {
@@ -544,7 +534,7 @@ function drawMountains()
 {
     for (var i=0; i < mountain_x.length; i++)
     {
-        fill(51,51,153);
+        fill(190, 191, 209);
         triangle(mountain_x[i], mountain_y,
 		         mountain_x[i] + 230, mountain_y,
 		         mountain_x[i] + (230 / 2), mountain_y - 320);
@@ -553,7 +543,7 @@ function drawMountains()
                 mountain_x[i] + 130 + 150, mountain_y,
 		        mountain_x[i] + 150 + (130 / 2), mountain_y - 200);
 
-        fill(99, 73, 143);
+        fill(150,143,143);
         triangle(mountain_x[i] + 5, mountain_y,
             mountain_x[i] + 220, mountain_y,
             mountain_x[i] + (230 / 2), mountain_y - 300);
