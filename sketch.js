@@ -175,7 +175,14 @@ function draw()
 
         if (EnemyContact)
         {
-            checkPlayerDie();
+            if(lives > 0)
+            {
+                lives -=1;
+                game_score = 0
+                startGame();
+                break;
+            }
+            
         }
     }
 
@@ -192,64 +199,64 @@ function draw()
             drawCanyon(canyons[j]);
             checkCanyon(canyons[j]);
         }
-        for (let i=0; i<lives;i++)
+    for (let i=0; i<lives;i++)
+    {
+        if (lives == 3)
         {
-            if (lives == 3)
+
+            stroke(0,255,0);
+            fill(0,255,0);
+            beginShape();
+            vertex(cameraPosX + 30, 60);
+            bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+            bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
+            endShape();
+            
+            stroke(0,255,0);
+            fill(0,255,0);
+            beginShape();
+            vertex(cameraPosX + 60, 60);
+            bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
+            bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
+            endShape();
+            
+            stroke(0,255,0);
+            fill(0,255,0);
+            beginShape();
+            vertex(cameraPosX + 90, 60);
+            bezierVertex(cameraPosX + 90 - 20 / 2, 60 - 20 / 2, cameraPosX + 90 - 20, 60 + 20 / 3, cameraPosX + 90, 60 + 20);
+            bezierVertex(cameraPosX + 90 + 20, 60 + 20 / 3, cameraPosX + 90 + 20 / 2, 60 - 20 / 2, cameraPosX + 90, 60);
+            endShape();
+        }
+        if (lives == 2)
             {
-    
-                stroke(0,255,0);
-                fill(0,255,0);
+                stroke(255, 95, 31);
+                fill(255, 95, 31);
                 beginShape();
                 vertex(cameraPosX + 30, 60);
                 bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
                 bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
                 endShape();
                 
-                stroke(0,255,0);
-                fill(0,255,0);
+                stroke(255, 95, 31);
+                fill(255, 95, 31);
                 beginShape();
                 vertex(cameraPosX + 60, 60);
                 bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
                 bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
                 endShape();
-                
-                stroke(0,255,0);
-                fill(0,255,0);
+            }
+        if (lives == 1)
+            {
+                stroke(255,0,0);
+                fill(255,0,0);
                 beginShape();
-                vertex(cameraPosX + 90, 60);
-                bezierVertex(cameraPosX + 90 - 20 / 2, 60 - 20 / 2, cameraPosX + 90 - 20, 60 + 20 / 3, cameraPosX + 90, 60 + 20);
-                bezierVertex(cameraPosX + 90 + 20, 60 + 20 / 3, cameraPosX + 90 + 20 / 2, 60 - 20 / 2, cameraPosX + 90, 60);
+                vertex(cameraPosX + 30, 60);
+                bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+                bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
                 endShape();
             }
-            if (lives == 2)
-                {
-                    stroke(255, 95, 31);
-                    fill(255, 95, 31);
-                    beginShape();
-                    vertex(cameraPosX + 30, 60);
-                    bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
-                    bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
-                    endShape();
-                    
-                    stroke(255, 95, 31);
-                    fill(255, 95, 31);
-                    beginShape();
-                    vertex(cameraPosX + 60, 60);
-                    bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
-                    bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
-                    endShape();
-                }
-            if (lives == 1)
-                {
-                    stroke(255,0,0);
-                    fill(255,0,0);
-                    beginShape();
-                    vertex(cameraPosX + 30, 60);
-                    bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
-                    bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
-                    endShape();
-                }
-        }
+    }
     for (var i=0; i<collectables.length; i++)
     {
         if (collectables[i].isFound == false)
@@ -261,13 +268,9 @@ function draw()
         }
         
     }
-    console.log(gameChar_x);
-    
 
-     
     if (lives == 0)
     {
-        gameSound.stop();
         background(go);
         jumpSound.setVolume(0);
         return;
@@ -754,7 +757,7 @@ function checkFlagpole()
 function checkPlayerDie()
 {
     var distance = 576 - gameChar_y;
-    if (distance < 10 || (EnemyContact == true))
+    if (distance < 10)
     {
         lives -= 1;
         isPlummeting = false;
@@ -778,16 +781,16 @@ function checkPlayerDie()
             gameChar_x = 1130;
             gameChar_y = floorPos_y;
         }
-        if (gamecharacterXpos > 1620 && gamecharacterXpos <= 2213)
+        if (gamecharacterXpos > 1620 && gamecharacterXpos <= 2900)
         {
             gameChar_x = 1660;
             gameChar_y = floorPos_y;
         }
-        if (gamecharacterXpos > 2215 && gamecharacterXpos <= 2800)
-        {
-            gameChar_x = 2237;
-            gameChar_y = floorPos_y;
-        }
+        // if (gamecharacterXpos > 2215 && gamecharacterXpos <= 2900)
+        // {
+        //     gameChar_x = 2237;
+        //     gameChar_y = floorPos_y;
+        // }
         
     }
 }
@@ -799,7 +802,7 @@ function startGame()
 
     enemies.push(new Enemy(-27,floorPos_y - 10,172));
     enemies.push(new Enemy(452,floorPos_y - 10,150));
-    enemies.push(new Enemy(2300,floorPos_y - 10,600));
+    enemies.push(new Enemy(2300,floorPos_y - 10,150));
 
     platforms = []; 
 
@@ -872,7 +875,8 @@ function startGame()
               {x_pos: 830,width: 270},
               {x_pos: 1150,width: 500},
               {x_pos: 1750,width: 500},
-              {x_pos: -500,width:500}]
+              {x_pos: -500,width:500},
+              {x_pos: 2560,width:170}]
 }
 
 function createPlatforms(x,y,length)
@@ -934,7 +938,6 @@ function Enemy(x,y, range)
         var d = dist(gc_x, gc_y,this.currentX, this.y)
         if (d < 20)
         {
-            
             return true;
         }
         return false;
