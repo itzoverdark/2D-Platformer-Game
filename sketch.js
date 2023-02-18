@@ -86,7 +86,7 @@ function setup()
     bg = loadImage('2109.w026.n002.828B.p1.828.jpg');
     go = loadImage('90s.jpg');
     sg = loadImage('enterr.jpg');
-	createCanvas(1124, 576);
+	createCanvas(1024, 576);
 	floorPos_y = height * 3/4;
     lives = 3;
     startGame();
@@ -94,12 +94,15 @@ function setup()
 
 function draw()
 {
-
-
 	///////////DRAWING CODE//////////
     if (mode == 0)
     {
-        background(sg);
+        background(0);
+        textSize(40);
+        fill(255);
+        textStyle(BOLD);
+        text("PRESS ENTER",350,height/2);
+        text("TO START THE GAME",290,height/2 + 50);
     }
     if (mode == 1){
 	// background(155,155,250); //fill the sky blue
