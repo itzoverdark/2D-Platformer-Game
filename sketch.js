@@ -1,6 +1,6 @@
 /*
 
-The Game Project 6
+The Game Project 
 
 
 */
@@ -41,8 +41,7 @@ var canyons;
 var jumpSound;
 var coinSound;
 var winSound;
-var dyingSound;
-var gameSound;
+
 
 var rainposx;
 var rainposy;
@@ -64,7 +63,7 @@ function preload()
 {
     soundFormats('mp3','wav');
     
-    //load your sounds here
+    //load sounds here
     jumpSound = loadSound('jump.wav');
     jumpSound.setVolume(0.1);
 
@@ -73,16 +72,13 @@ function preload()
     
     winSound = loadSound('Stage Win Super Mario - Sound Effect.mp3');
     winSound.setVolume(0.1);
-
-    dyingSound = loadSound('Mario Death - Sound Effect.mp3');
-    dyingSound.setVolume(0.1);
-
-    gameSound = loadSound('oblivion.mp3');
-    gameSound.setVolume(0.2);
 }
 
 function setup()
 {
+    //bg : game background
+    //go : game over
+    //sg: start game
     bg = loadImage('2109.w026.n002.828B.p1.828.jpg');
     go = loadImage('90s.jpg');
     sg = loadImage('enterr.jpg');
@@ -105,11 +101,10 @@ function draw()
         text("TO START THE GAME",290,height/2 + 50);
     }
     if (mode == 1){
-	// background(155,155,250); //fill the sky blue
     background(bg);
     cameraPosX = gameChar_x - 600;
     
-    //draw some green ground
+    //draw some green and brown ground
 	noStroke();
 	fill(0, 170,0);
 	rect(0, floorPos_y, width, height - floorPos_y); 
@@ -123,7 +118,8 @@ function draw()
     textSize(20);
     fill(255);
     text("Your score is: "+game_score,cameraPosX + 10,30);
-
+    
+    //rain 
     fill(255,255,255,80);
     noStroke();
     for (var i=0; i < numRain; i++)
@@ -137,8 +133,7 @@ function draw()
         }
     }
 
-    
-    
+    //door at the beginning
     stroke(53, 52, 97);
     fill(144, 101, 168);
     rect(-815,212,120,220);
@@ -175,7 +170,6 @@ function draw()
     {
         enemies[i].draw();
         EnemyContact = enemies[i].checkContact(gameChar_x, gameChar_y);
-
         if (EnemyContact)
         {
             if(lives > 0)
@@ -202,64 +196,64 @@ function draw()
             drawCanyon(canyons[j]);
             checkCanyon(canyons[j]);
         }
-    for (let i=0; i<lives;i++)
+    //draw lives
+    if (lives == 3)
     {
-        if (lives == 3)
-        {
 
-            stroke(0,255,0);
-            fill(0,255,0);
+        stroke(0,255,0);
+        fill(0,255,0);
+        beginShape();
+        vertex(cameraPosX + 30, 60);
+        bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+        bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
+        endShape();
+        
+        stroke(0,255,0);
+        fill(0,255,0);
+        beginShape();
+        vertex(cameraPosX + 60, 60);
+        bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
+        bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
+        endShape();
+        
+        stroke(0,255,0);
+        fill(0,255,0);
+        beginShape();
+        vertex(cameraPosX + 90, 60);
+        bezierVertex(cameraPosX + 90 - 20 / 2, 60 - 20 / 2, cameraPosX + 90 - 20, 60 + 20 / 3, cameraPosX + 90, 60 + 20);
+        bezierVertex(cameraPosX + 90 + 20, 60 + 20 / 3, cameraPosX + 90 + 20 / 2, 60 - 20 / 2, cameraPosX + 90, 60);
+        endShape();
+    }
+    if (lives == 2)
+        {
+            stroke(255, 95, 31);
+            fill(255, 95, 31);
             beginShape();
             vertex(cameraPosX + 30, 60);
             bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
             bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
             endShape();
             
-            stroke(0,255,0);
-            fill(0,255,0);
+            stroke(255, 95, 31);
+            fill(255, 95, 31);
             beginShape();
             vertex(cameraPosX + 60, 60);
             bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
             bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
             endShape();
-            
-            stroke(0,255,0);
-            fill(0,255,0);
+        }
+    if (lives == 1)
+        {
+            stroke(255,0,0);
+            fill(255,0,0);
             beginShape();
-            vertex(cameraPosX + 90, 60);
-            bezierVertex(cameraPosX + 90 - 20 / 2, 60 - 20 / 2, cameraPosX + 90 - 20, 60 + 20 / 3, cameraPosX + 90, 60 + 20);
-            bezierVertex(cameraPosX + 90 + 20, 60 + 20 / 3, cameraPosX + 90 + 20 / 2, 60 - 20 / 2, cameraPosX + 90, 60);
+            vertex(cameraPosX + 30, 60);
+            bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
+            bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
             endShape();
         }
-        if (lives == 2)
-            {
-                stroke(255, 95, 31);
-                fill(255, 95, 31);
-                beginShape();
-                vertex(cameraPosX + 30, 60);
-                bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
-                bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
-                endShape();
-                
-                stroke(255, 95, 31);
-                fill(255, 95, 31);
-                beginShape();
-                vertex(cameraPosX + 60, 60);
-                bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
-                bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
-                endShape();
-            }
-        if (lives == 1)
-            {
-                stroke(255,0,0);
-                fill(255,0,0);
-                beginShape();
-                vertex(cameraPosX + 30, 60);
-                bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
-                bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
-                endShape();
-            }
-    }
+
+
     for (var i=0; i<collectables.length; i++)
     {
         if (collectables[i].isFound == false)
@@ -271,7 +265,7 @@ function draw()
         }
         
     }
-
+    //game over screen
     if (lives == 0)
     {
         background(go);
@@ -279,14 +273,15 @@ function draw()
         return;
         
     }
+    console.log(gameChar_x);
+    //draw trampoline
     fill(100);
     stroke(255);
     ellipse(1100,floorPos_y,100,10);
     
+    // level completed
     if (flagpole.isReached)
     {
-        gameSound.stop();
-        winSound.setVolume(0.1);
         fill(0);
         noStroke();
         text("Level complete. Press space to continue.", cameraPosX + 460,310);
@@ -789,11 +784,6 @@ function checkPlayerDie()
             gameChar_x = 1660;
             gameChar_y = floorPos_y;
         }
-        // if (gamecharacterXpos > 2215 && gamecharacterXpos <= 2900)
-        // {
-        //     gameChar_x = 2237;
-        //     gameChar_y = floorPos_y;
-        // }
         
     }
 }
@@ -816,7 +806,6 @@ function startGame()
     platforms.push(createPlatforms(1850, floorPos_y - 200, 100));
     platforms.push(createPlatforms(1950, floorPos_y - 300, 100));
     
-    // gameSound.play();
     rainposx = [];
     rainposy = [];
     rainDirectionx = [];
@@ -835,7 +824,7 @@ function startGame()
         rainDirectiony.push(random(0,height));
     }
     
-    winSound.setVolume(0);
+    winSound.setVolume(0.1);
     jumpSound.setVolume(0.1);
     gameChar_x = -758;
 	gameChar_y = floorPos_y;
