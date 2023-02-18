@@ -55,6 +55,11 @@ var bg;
 
 var mode = 0;
 
+var platforms;
+var enemies;
+
+var EnemyContact;
+
 function preload()
 {
     soundFormats('mp3','wav');
@@ -162,6 +167,24 @@ function draw()
     }
     // Check Player Die
     checkPlayerDie();
+    //Enemies
+    for (var i=0; i<enemies.length;i++)
+    {
+        enemies[i].draw();
+        EnemyContact = enemies[i].checkContact(gameChar_x, gameChar_y);
+
+        if (EnemyContact)
+        {
+            checkPlayerDie();
+        }
+    }
+
+    // draw platforms
+    for (var i=0; i< platforms.length;i++)
+    {
+        platforms[i].draw();
+    }
+
 
     for (var j=0; j < canyons.length; j++)
         {
@@ -238,7 +261,7 @@ function draw()
         }
         
     }
-
+    console.log(gameChar_x);
     
 
      
@@ -388,6 +411,7 @@ function draw()
     if ((isLeft == true) && (gameChar_y - 10<= floorPos_y) && (gameChar_x >= -1000))
     {
         gameChar_x -= 3;
+
     }
     
     //Walk right
@@ -397,19 +421,17 @@ function draw()
     }
     
     //Jump right
-    if ((gameChar_y < floorPos_y) && (isRight) && (gameChar_y - 10<= floorPos_y))
+    if ((gameChar_y < floorPos_y) && (isRight) && (gameChar_y < floorPos_y))
     {
-        gameChar_y += 1.5;
         gameChar_x += 2;
-        isFalling = true;
     }
     
     //Jump left
-    if ((gameChar_y < floorPos_y) && (isLeft) && (gameChar_y - 10<= floorPos_y) && (gameChar_x >= -1000))
+    if ((gameChar_y < floorPos_y) && (isLeft) && (gameChar_y < floorPos_y) && (gameChar_x >= -1000))
     {
-        gameChar_y += 1.5;
+        // gameChar_y += 1.5;
         gameChar_x -= 2;
-        isFalling = true;
+        
     }
     
     //Go down the canyan
@@ -422,12 +444,26 @@ function draw()
     
     if (gameChar_y < floorPos_y)
     {
-        gameChar_y += 1.5;
-        isFalling = true;
+        var isContact = false;
+        for (var i=0; i< platforms.length; i++)
+        {
+            if(platforms[i].checkContact(gameChar_x, gameChar_y) == true) 
+            {
+                isContact = true;
+                isFalling = false;
+                break;
+            }
+        }
+        if(isContact == false)
+        {
+            gameChar_y += 3;
+            isFalling = true;
+        }
     }
     else{
         isFalling = false;
     }
+    
 }
 }
 
@@ -509,6 +545,7 @@ function keyReleased()
     }
 }
 
+
 function drawClouds()
 {
     for (var i=0; i < clouds_x.length;i++)
@@ -534,7 +571,7 @@ function drawMountains()
 {
     for (var i=0; i < mountain_x.length; i++)
     {
-        fill(190, 191, 209);
+        fill(130, 113, 113);
         triangle(mountain_x[i], mountain_y,
 		         mountain_x[i] + 230, mountain_y,
 		         mountain_x[i] + (230 / 2), mountain_y - 320);
@@ -614,7 +651,7 @@ function checkCollectable(t_collectable)
 
 function drawCanyon(t_canyon)
 {
-    fill(150, 120, 271);
+    fill(58,50,50);
     noStroke();
     rect(t_canyon.x_pos ,432 ,t_canyon.width - 50 ,143);
     stroke(0);
@@ -692,9 +729,9 @@ function renderFlagpole()
     }
     else
     {
-        if (gameChar_x <= 1900)
+        if (gameChar_x <= 2900)
         {
-            rect(flagpole.x_pos, floorPos_y + gameChar_x - 2100, 50,50);
+            rect(flagpole.x_pos, floorPos_y + gameChar_x - 3100, 50,50);
         }
         else{
             rect(flagpole.x_pos, floorPos_y - 200, 50,50);
@@ -717,27 +754,61 @@ function checkFlagpole()
 function checkPlayerDie()
 {
     var distance = 576 - gameChar_y;
-    if (distance < 10)
+    if (distance < 10 || (EnemyContact == true))
     {
         lives -= 1;
         isPlummeting = false;
-        var gamecharacterXpos = gameChar_x
-        if(gamecharacterXpos >= 150 && gamecharacterXpos <= 460)
+        var gamecharacterXpos = gameChar_x;
+        if(gamecharacterXpos <= 260)
         {
-            gameChar_x = 120;
-            gameChar_y = floorPos_y
+            gameChar_x = -758;
+            gameChar_y = floorPos_y;
         }
-        if(gamecharacterXpos >= 600 && gamecharacterXpos <= 1800)
+        if(gamecharacterXpos > 330 && gamecharacterXpos <= 800)
         {
-            gameChar_x = 580;
-            gameChar_y = floorPos_y
+            gameChar_x = 303;
+            gameChar_y = floorPos_y;
+        }
+        if (gamecharacterXpos > 805 && gamecharacterXpos <= 1130){
+            gameChar_x = 807;
+            gameChar_y = floorPos_y;
+        }
+        if (gamecharacterXpos > 1150 && gamecharacterXpos <= 1612)
+        {
+            gameChar_x = 1130;
+            gameChar_y = floorPos_y;
+        }
+        if (gamecharacterXpos > 1620 && gamecharacterXpos <= 2213)
+        {
+            gameChar_x = 1660;
+            gameChar_y = floorPos_y;
+        }
+        if (gamecharacterXpos > 2215 && gamecharacterXpos <= 2800)
+        {
+            gameChar_x = 2237;
+            gameChar_y = floorPos_y;
         }
         
     }
 }
 
+
 function startGame()
 {
+    enemies = [];
+
+    enemies.push(new Enemy(-27,floorPos_y - 10,172));
+    enemies.push(new Enemy(452,floorPos_y - 10,150));
+    enemies.push(new Enemy(2300,floorPos_y - 10,600));
+
+    platforms = []; 
+
+    platforms.push(createPlatforms(-550, floorPos_y - 100, 100));
+    platforms.push(createPlatforms(-350, floorPos_y - 100, 100));
+    platforms.push(createPlatforms(-150, floorPos_y - 100, 100));
+    platforms.push(createPlatforms(1750, floorPos_y - 100, 100));
+    platforms.push(createPlatforms(1850, floorPos_y - 200, 100));
+    platforms.push(createPlatforms(1950, floorPos_y - 300, 100));
     
     // gameSound.play();
     rainposx = [];
@@ -765,7 +836,7 @@ function startGame()
     
     flagpole =
     {
-        x_pos: 1900,
+        x_pos: 2900,
         y_pos: 70,
         isReached: false
     };
@@ -785,9 +856,9 @@ function startGame()
     mountain_x = [360,780];
     mountain_y = floorPos_y;
     
-    collectables = [{x_pos : -105  ,y_pos: 80, size : 50, isFound : false },
-                    {x_pos : -400  ,y_pos: 100, size : 50, isFound : false},
-                    {x_pos : -800 ,y_pos: 100, size : 50, isFound : false},
+    collectables = [{x_pos : -60  ,y_pos: 80, size : 50, isFound : false },
+                    {x_pos : -360  ,y_pos: 100, size : 50, isFound : false},
+                    {x_pos : -820 ,y_pos: -1, size : 50, isFound : false},
                     {x_pos : -1000 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 100  ,y_pos: 100, size : 50, isFound : false },
                     {x_pos : 400  ,y_pos: 90, size : 50, isFound : false},
@@ -799,5 +870,73 @@ function startGame()
               {x_pos: 320,width: 170},
               {x_pos: 600,width: 250},
               {x_pos: 830,width: 270},
-              {x_pos: 1150,width: 500}]
+              {x_pos: 1150,width: 500},
+              {x_pos: 1750,width: 500},
+              {x_pos: -500,width:500}]
+}
+
+function createPlatforms(x,y,length)
+{
+    var p = {
+        x: x,
+        y: y,
+        length: length,
+        draw: function()
+        {
+            fill( 165, 242, 243);
+            rect(this.x,this.y,this.length,10);
+        },
+        checkContact: function(gc_x, gc_y)
+        {
+            if (gc_x > this.x && gc_x < this.x + this.length)
+            {
+                var d = this.y - gc_y;
+                if (d >= 0 && d < 3)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    return p;
+}
+
+function Enemy(x,y, range)
+{
+    this.x = x;
+    this.y = y;
+    this.range = range;
+
+    this.currentX = x
+    this.inc = 1;
+
+    this.update = function()
+    {
+        this.currentX += this.inc;
+        if (this.currentX >= this.range + this.x)
+        {
+            this.inc = -2;
+        }
+        else if (this.currentX <= this.x )
+        {
+            this.inc = 2;
+        }
+    },
+    this.draw = function()
+    {
+        this.update();
+        fill(255,0,0)
+        ellipse(this.currentX, this.y,20,20);
+    },
+    this.checkContact = function(gc_x,gc_y)
+    {
+        var d = dist(gc_x, gc_y,this.currentX, this.y)
+        if (d < 20)
+        {
+            
+            return true;
+        }
+        return false;
+    }
 }
