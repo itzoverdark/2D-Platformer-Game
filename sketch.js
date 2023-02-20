@@ -83,7 +83,7 @@ function setup()
     go = loadImage('90s.jpg');
     sg = loadImage('enterr.jpg');
 	createCanvas(1024, 576);
-	floorPos_y = height * 3/4;
+	floorPos_y = height * 3/4 + 1;
     lives = 3;
     startGame();
 }
@@ -132,20 +132,7 @@ function draw()
             rainposy[i] = 100;
         }
     }
-
-    //door at the beginning
-    stroke(53, 52, 97);
-    fill(144, 101, 168);
-    rect(-815,212,120,220);
-    fill(127, 0, 255);
-    stroke(0);
-    rect(-805,232,100,200);
-    noStroke();
-    for (let i=0; i<100; i++)
-    {
-        fill(112,156,208);
-        ellipse(random(-805,-705), random(232,432), 3,3);
-    }
+    
     //Clouds
     drawClouds();
     
@@ -273,7 +260,6 @@ function draw()
         return;
         
     }
-    console.log(gameChar_x);
     //draw trampoline
     fill(100);
     stroke(255);
@@ -294,7 +280,7 @@ function draw()
         text("Collect all the coins to advance to the next level.", -980,110);
         text("USE THE ARROW KEYS TO MOVE AND JUMP.", -980,50);
     }
-    
+    console.log(gameChar_x);
     
 
     //the game character
@@ -409,32 +395,16 @@ function draw()
 	//Put conditional statements to move the game character below here
     
     //Walk left
-    if ((isLeft == true) && (gameChar_y - 10<= floorPos_y) && (gameChar_x >= -1000))
+    if (isLeft && (gameChar_y <= floorPos_y) || ((gameChar_y <= floorPos_y) && isLeft))
     {
-        gameChar_x -= 3;
-
+        gameChar_x -= 4;
     }
     
     //Walk right
-    if ((isRight == true) && (gameChar_y - 10<= floorPos_y))
+    if (isRight && (gameChar_y <= floorPos_y) || ((gameChar_y <= floorPos_y) && isRight))
     {
-        gameChar_x += 3;
+        gameChar_x += 4;
     }
-    
-    //Jump right
-    if ((gameChar_y < floorPos_y) && (isRight) && (gameChar_y < floorPos_y))
-    {
-        gameChar_x += 2;
-    }
-    
-    //Jump left
-    if ((gameChar_y < floorPos_y) && (isLeft) && (gameChar_y < floorPos_y) && (gameChar_x >= -1000))
-    {
-        // gameChar_y += 1.5;
-        gameChar_x -= 2;
-        
-    }
-    
     //Go down the canyan
     if (isPlummeting)
     {
@@ -450,6 +420,7 @@ function draw()
         {
             if(platforms[i].checkContact(gameChar_x, gameChar_y) == true) 
             {
+
                 isContact = true;
                 isFalling = false;
                 break;
@@ -457,7 +428,7 @@ function draw()
         }
         if(isContact == false)
         {
-            gameChar_y += 3;
+            gameChar_y += 2.5;
             isFalling = true;
         }
     }
@@ -474,8 +445,6 @@ function keyPressed()
 	// keys are pressed.
 
 	//open up the console to see how these work
-	console.log("keyPressed: " + key);
-	console.log("keyPressed: " + keyCode);
     
     if (!isPlummeting)
     {
@@ -509,9 +478,7 @@ function keyPressed()
                 game_score = 0;
                 startGame();    
             }
-            
         }
-
     }
 
     if (keyCode == 13)
@@ -524,9 +491,6 @@ function keyReleased()
 {
 	// if statements to control the animation of the character when
 	// keys are released.
-
-	console.log("keyReleased: " + key);
-	console.log("keyReleased: " + keyCode);
     
     if (keyCode == 38)
     {
@@ -572,23 +536,29 @@ function drawMountains()
 {
     for (var i=0; i < mountain_x.length; i++)
     {
-        fill(130, 113, 113);
+        //mountain outline
+        fill(100, 90, 90);
         triangle(mountain_x[i], mountain_y,
-		         mountain_x[i] + 230, mountain_y,
-		         mountain_x[i] + (230 / 2), mountain_y - 320);
-
-        triangle(mountain_x[i] + 150, mountain_y,
-                mountain_x[i] + 130 + 150, mountain_y,
-		        mountain_x[i] + 150 + (130 / 2), mountain_y - 200);
-
-        fill(150,143,143);
-        triangle(mountain_x[i] + 5, mountain_y,
-            mountain_x[i] + 220, mountain_y,
-            mountain_x[i] + (230 / 2), mountain_y - 300);
-
-        triangle(mountain_x[i] + 160, mountain_y,
-            mountain_x[i] + 270, mountain_y,
-            mountain_x[i] + 150 + (130 / 2), mountain_y - 180);
+		         mountain_x[i] + 330, mountain_y,
+		         mountain_x[i] + (330 / 2), mountain_y - 320);
+        //mountain shade
+        fill(50,50,60);
+        triangle(mountain_x[i], mountain_y,
+                mountain_x[i] + 100, mountain_y,
+                mountain_x[i] + (330 / 2), mountain_y - 320);
+        //mountain top
+        fill(240);
+        stroke(240);
+        triangle(mountain_x[i] + 149, mountain_y - 250,
+                mountain_x[i] + 202, mountain_y - 250,
+                mountain_x[i] + (330 / 2), mountain_y - 320);
+        
+        fill(210);
+        stroke(210);
+        triangle(mountain_x[i] + 133, mountain_y - 260,
+                mountain_x[i] + 149, mountain_y - 250,
+                mountain_x[i] + (330 / 2), mountain_y - 320);
+        noStroke();
     };
 }
 
@@ -596,19 +566,22 @@ function drawTrees()
 {
     for (var i=0; i < tree_x.length; i++)
     {
-        stroke(1);
+        stroke(130, 102, 68);
         fill(130, 102, 68);
         rect(tree_x[i] - 25,tree_y - 160,50,160);
+
         fill(70, 60, 20);
-        noStroke();
+        stroke(70, 60, 20);
         triangle(tree_x[i]-25, tree_y,
                  tree_x[i] + 25, tree_y,
                  tree_x[i] + 25, tree_y - 70);
         fill(45, 90, 39);
+        stroke(45, 90, 39);
         ellipse(tree_x[i],tree_y - 170,150,150);
         fill(65, 110, 59);
-        noStroke();
+        stroke(65, 110, 59);
         ellipse(tree_x[i],tree_y - 170,100,100);
+        noStroke();
         
     };
 }
@@ -654,8 +627,8 @@ function drawCanyon(t_canyon)
 {
     fill(58,50,50);
     noStroke();
-    rect(t_canyon.x_pos ,432 ,t_canyon.width - 50 ,143);
-    stroke(0);
+    rect(t_canyon.x_pos ,432 ,t_canyon.width - 50,143);
+    noStroke();
     fill(100);
     
     if (t_canyon.width == 170)
@@ -709,7 +682,9 @@ function drawCanyon(t_canyon)
 
 function checkCanyon(t_canyon)
 {
-    if(gameChar_x > t_canyon.x_pos + 10  && gameChar_x < (t_canyon.x_pos + t_canyon.width - 60) && gameChar_y >= floorPos_y)
+    if(gameChar_x > t_canyon.x_pos  &&
+        gameChar_x < (t_canyon.x_pos + t_canyon.width - 50) &&
+        gameChar_y >= floorPos_y)
     {
         isPlummeting = true;
     }
@@ -760,12 +735,12 @@ function checkPlayerDie()
         lives -= 1;
         isPlummeting = false;
         var gamecharacterXpos = gameChar_x;
-        if(gamecharacterXpos <= 260)
+        if(gamecharacterXpos <= 278)
         {
             gameChar_x = -758;
             gameChar_y = floorPos_y;
         }
-        if(gamecharacterXpos > 330 && gamecharacterXpos <= 800)
+        if(gamecharacterXpos > 315 && gamecharacterXpos <= 800)
         {
             gameChar_x = 303;
             gameChar_y = floorPos_y;
@@ -848,23 +823,23 @@ function startGame()
     clouds_y = 100;
     cloudSpace = 1;
     
-    mountain_x = [360,780];
+    mountain_x = [390,1400,2200];
     mountain_y = floorPos_y;
     
     collectables = [{x_pos : -60  ,y_pos: 80, size : 50, isFound : false },
                     {x_pos : -360  ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : -820 ,y_pos: -1, size : 50, isFound : false},
                     {x_pos : -1000 ,y_pos: 100, size : 50, isFound : false},
-                    {x_pos : 100  ,y_pos: 100, size : 50, isFound : false },
                     {x_pos : 400  ,y_pos: 90, size : 50, isFound : false},
                     {x_pos : 810 ,y_pos: 100, size : 50, isFound : false},
-                    {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false}]
+                    {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false},
+                    {x_pos : 1680 ,y_pos: -190, size : 50, isFound : false}]
     
     
     canyons = [{x_pos: 150,width: 170},
               {x_pos: 320,width: 170},
               {x_pos: 600,width: 250},
-              {x_pos: 830,width: 270},
+              {x_pos: 830,width: 170},
               {x_pos: 1150,width: 500},
               {x_pos: 1750,width: 500},
               {x_pos: -500,width:500},
@@ -884,10 +859,10 @@ function createPlatforms(x,y,length)
         },
         checkContact: function(gc_x, gc_y)
         {
-            if (gc_x > this.x && gc_x < this.x + this.length)
+            if (gc_x > this.x - 10 && gc_x < this.x + this.length + 10)
             {
                 var d = this.y - gc_y;
-                if (d >= 0 && d < 3)
+                if (d >= 0 && d < 2)
                 {
                     return true;
                 }
