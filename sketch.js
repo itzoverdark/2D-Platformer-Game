@@ -219,62 +219,6 @@ function draw()
         }
         
     }
-    // if (lives == 3)
-    // {
-
-    //     stroke(0,255,0);
-    //     fill(0,255,0);
-    //     beginShape();
-    //     vertex(cameraPosX + 30"", 60);
-    //     bezierVertex(cameraPosX + 30"" - 20 / 2, 60 - 20 / 2, cameraPosX + 30"" - 20, 60 + 20 / 3, cameraPosX + 30"", 60 + 20);
-    //     bezierVertex(cameraPosX + 30"" + 20, 60 + 20 / 3, cameraPosX + 30"" + 20 / 2, 60 - 20 / 2, cameraPosX + 30"", 60);
-    //     endShape();
-        
-    //     stroke(0,255,0);
-    //     fill(0,255,0);
-    //     beginShape();
-    //     vertex(cameraPosX + 60, 60);
-    //     bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
-    //     bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
-    //     endShape();
-        
-    //     stroke(0,255,0);
-    //     fill(0,255,0);
-    //     beginShape();
-    //     vertex(cameraPosX + 90, 60);
-    //     bezierVertex(cameraPosX + 90 - 20 / 2, 60 - 20 / 2, cameraPosX + 90 - 20, 60 + 20 / 3, cameraPosX + 90, 60 + 20);
-    //     bezierVertex(cameraPosX + 90 + 20, 60 + 20 / 3, cameraPosX + 90 + 20 / 2, 60 - 20 / 2, cameraPosX + 90, 60);
-    //     endShape();
-    // }
-    // if (lives == 2)
-    //     {
-    //         stroke(255, 95, 31);
-    //         fill(255, 95, 31);
-    //         beginShape();
-    //         vertex(cameraPosX + 30, 60);
-    //         bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
-    //         bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
-    //         endShape();
-            
-    //         stroke(255, 95, 31);
-    //         fill(255, 95, 31);
-    //         beginShape();
-    //         vertex(cameraPosX + 60, 60);
-    //         bezierVertex(cameraPosX + 60 - 20 / 2, 60 - 20 / 2, cameraPosX + 60 - 20, 60 + 20 / 3, cameraPosX + 60, 60 + 20);
-    //         bezierVertex(cameraPosX + 60 + 20, 60 + 20 / 3, cameraPosX + 60 + 20 / 2, 60 - 20 / 2, cameraPosX + 60, 60);
-    //         endShape();
-    //     }
-    // if (lives == 1)
-    //     {
-    //         stroke(255,0,0);
-    //         fill(255,0,0);
-    //         beginShape();
-    //         vertex(cameraPosX + 30, 60);
-    //         bezierVertex(cameraPosX + 30 - 20 / 2, 60 - 20 / 2, cameraPosX + 30 - 20, 60 + 20 / 3, cameraPosX + 30, 60 + 20);
-    //         bezierVertex(cameraPosX + 30 + 20, 60 + 20 / 3, cameraPosX + 30 + 20 / 2, 60 - 20 / 2, cameraPosX + 30, 60);
-    //         endShape();
-    //     }
-
 
     for (var i=0; i<collectables.length; i++)
     {
@@ -867,7 +811,6 @@ function startGame()
                     {x_pos : 810 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1680 ,y_pos: -190, size : 50, isFound : false}]
-    
     
     canyons = [{x_pos: 150,width: 170},
               {x_pos: 320,width: 170},
