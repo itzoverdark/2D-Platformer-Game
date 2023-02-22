@@ -251,7 +251,6 @@ function draw()
         noStroke();
         text("Level complete. Press space to continue.", cameraPosX + 460,310);
         jumpSound.setVolume(0);
-        
         return;
     }else{
         fill(255,0,0);
@@ -299,7 +298,6 @@ function draw()
 	{
 		// add your walking left code
         //Head
-        stroke(0);
         fill(224, 172, 105);
         ellipse(gameChar_x,gameChar_y - 60,10,30);
         //Legs
@@ -316,7 +314,6 @@ function draw()
 	{
 		// add your walking right code
         //Head
-        stroke(0);
         fill(224, 172, 105);
         ellipse(gameChar_x,gameChar_y - 60,10,30);
         //Legs
@@ -333,7 +330,6 @@ function draw()
 	else if(isFalling || isPlummeting)
 	{
 		// add your jumping facing forwards code
-        stroke(0);
         fill(224, 172, 105);
         ellipse(gameChar_x,gameChar_y - 60,30);
         fill(224, 172, 105);
@@ -351,7 +347,6 @@ function draw()
 	else
 	{
 		// add your standing front facing code
-        stroke(0);
         fill(224, 172, 105);
         ellipse(gameChar_x,gameChar_y - 60,30);
         fill(224, 172, 105);
@@ -420,8 +415,6 @@ function keyPressed()
 {
 	// if statements to control the animation of the character when
 	// keys are pressed.
-
-	//open up the console to see how these work
     
     if (!isPlummeting)
     {
