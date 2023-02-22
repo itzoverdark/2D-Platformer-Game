@@ -539,12 +539,11 @@ function drawTrees()
         stroke(130, 102, 68);
         fill(130, 102, 68);
         rect(tree_x[i] - 25,tree_y - 160,50,160);
-
         fill(70, 60, 20);
         stroke(70, 60, 20);
         triangle(tree_x[i]-25, tree_y,
                  tree_x[i] + 25, tree_y,
-                 tree_x[i] + 25, tree_y - 70);
+                 tree_x[i] - 25, tree_y - 70);
         fill(45, 90, 39);
         stroke(45, 90, 39);
         ellipse(tree_x[i],tree_y - 170,150,150);
