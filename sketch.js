@@ -174,7 +174,7 @@ function draw()
         if (enemies[i].visible == false)
         {
             enemies.splice(enemies[i], 1);
-            gameChar_y -=100; 
+            gameChar_y -=50; 
             killEnemy.play();
         }
     }
@@ -700,6 +700,7 @@ function checkFlagpole()
     if (d < 15 && game_score == 8)
     {
         flagpole.isReached = true;
+        winSound.setVolume(0.1);
         winSound.play();
     }
 }
@@ -745,7 +746,7 @@ function startGame()
 {
     enemies = [];
 
-    enemies.push(new Enemy(-27,floorPos_y - 10,172));
+    enemies.push(new Enemy(-27,floorPos_y - 10,165));
     enemies.push(new Enemy(452,floorPos_y - 10,150));
     enemies.push(new Enemy(2300,floorPos_y - 10,150));
 
@@ -776,7 +777,7 @@ function startGame()
         rainDirectiony.push(random(0,height));
     }
     
-    winSound.setVolume(0.1);
+    winSound.setVolume(0);
     jumpSound.setVolume(0.1);
     gameChar_x = -758;
 	gameChar_y = floorPos_y;
