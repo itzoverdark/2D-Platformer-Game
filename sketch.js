@@ -59,6 +59,7 @@ var enemies;
 
 var EnemyContact;
 
+
 function preload()
 {
     soundFormats('mp3','wav');
@@ -72,6 +73,9 @@ function preload()
     
     winSound = loadSound('Stage Win Super Mario - Sound Effect.mp3');
     winSound.setVolume(0.1);
+
+    killEnemy = loadSound('Super Mario World.mp3')
+    killEnemy.setVolume(0.4);
 }
 
 function setup()
@@ -165,8 +169,13 @@ function draw()
                 game_score = 0
                 startGame();
                 break;
-            }
-            
+            }   
+        }
+        if (enemies[i].visible == false)
+        {
+            enemies.splice(enemies[i], 1);
+            gameChar_y -=100; 
+            killEnemy.play();
         }
     }
 
@@ -176,14 +185,13 @@ function draw()
         platforms[i].draw();
     }
 
-
     for (var j=0; j < canyons.length; j++)
         {
             
             drawCanyon(canyons[j]);
             checkCanyon(canyons[j]);
         }
-    //draw lives
+    //draw lives and change their colors depending on the number of lives
 
     for (var i=1; i<= lives; i ++)
     {
@@ -846,6 +854,7 @@ function Enemy(x,y, range)
     this.x = x;
     this.y = y;
     this.range = range;
+    this.visible = true;
 
     this.currentX = x
     this.inc = 1;
@@ -865,16 +874,24 @@ function Enemy(x,y, range)
     this.draw = function()
     {
         this.update();
-        fill(255,0,0)
-        ellipse(this.currentX, this.y,20,20);
+        if (this.visible)
+        {
+            fill(255,0,0);
+            ellipse(this.currentX, this.y,40);   
+        }
+        
     },
     this.checkContact = function(gc_x,gc_y)
     {
         var d = dist(gc_x, gc_y,this.currentX, this.y)
-        if (d < 20)
+        if (d < 24 && gameChar_y < this.y)
+        {
+            this.visible = false;
+        }
+        if (d < 20 && gameChar_y > this.y)
         {
             return true;
         }
-        return false;
+        
     }
 }
