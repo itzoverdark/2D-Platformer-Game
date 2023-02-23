@@ -58,7 +58,7 @@ var platforms;
 var enemies;
 
 var EnemyContact;
-
+var killedEnemies = [];
 
 function preload()
 {
@@ -159,7 +159,11 @@ function draw()
     //Enemies
     for (var i=0; i<enemies.length;i++)
     {
-        enemies[i].draw();
+        if (enemies[i].isAlive)
+        {
+            enemies[i].draw();
+        }
+        
         EnemyContact = enemies[i].checkContact(gameChar_x, gameChar_y);
         if (EnemyContact)
         {
@@ -171,13 +175,28 @@ function draw()
                 break;
             }   
         }
-        if (enemies[i].visible == false)
+        
+        if (!enemies[i].visible && !enemies[i].isAlive) 
         {
-            enemies.splice(enemies[i], 1);
-            gameChar_y -=50; 
+            killedEnemies.push(i);
+            gameChar_y -= 50;
             killEnemy.play();
+            for (let i = 100; i > 0;i--)
+            {
+                fill(255, 255, 0);
+                textSize(30);
+                text("+100", gameChar_x - 50, gameChar_y - 100);
+            }
         }
     }
+        
+
+    for (var i = killedEnemies.length - 1; i >= 0; i--) {
+        enemies.splice(killedEnemies[i], 1);
+    }
+    
+    // Reset the killedEnemies array
+    killedEnemies = [];
 
     // draw platforms
     for (var i=0; i< platforms.length;i++)
@@ -745,6 +764,7 @@ function checkPlayerDie()
 function startGame()
 {
     enemies = [];
+    killedEnemies = [];
 
     enemies.push(new Enemy(-27,floorPos_y - 10,165));
     enemies.push(new Enemy(452,floorPos_y - 10,150));
@@ -856,6 +876,7 @@ function Enemy(x,y, range)
     this.y = y;
     this.range = range;
     this.visible = true;
+    this.isAlive = true;
 
     this.currentX = x
     this.inc = 1;
@@ -888,6 +909,7 @@ function Enemy(x,y, range)
         if (d < 24 && gameChar_y < this.y)
         {
             this.visible = false;
+            this.isAlive = false;
         }
         if (d < 20 && gameChar_y > this.y)
         {
