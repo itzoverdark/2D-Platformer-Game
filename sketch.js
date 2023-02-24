@@ -785,9 +785,9 @@ function startGame()
     enemies = [];
     killedEnemies = [];
 
-    enemies.push(new Enemy(-27,floorPos_y - 20,165));
-    enemies.push(new Enemy(452,floorPos_y - 20,150));
-    enemies.push(new Enemy(2300,floorPos_y - 20,150));
+    enemies.push(new Enemy(-27,floorPos_y - 10,165));
+    enemies.push(new Enemy(452,floorPos_y - 10,150));
+    enemies.push(new Enemy(2300,floorPos_y - 10,150));
 
     platforms = []; 
 
@@ -796,7 +796,6 @@ function startGame()
     platforms.push(createPlatforms(-150, floorPos_y - 100, 100));
     platforms.push(createPlatforms(1750, floorPos_y - 100, 100));
     platforms.push(createPlatforms(1850, floorPos_y - 200, 100));
-    // platforms.push(createPlatforms(1950, floorPos_y - 300, 100));
     
     rainposx = [];
     rainposy = [];
