@@ -181,12 +181,6 @@ function draw()
             killedEnemies.push(i);
             gameChar_y -= 50;
             killEnemy.play();
-            for (let i = 100; i > 0;i--)
-            {
-                fill(255, 255, 0);
-                textSize(30);
-                text("+100", gameChar_x - 50, gameChar_y - 100);
-            }
         }
     }
         
