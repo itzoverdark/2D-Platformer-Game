@@ -527,11 +527,36 @@ function drawMountains()
 {
     for (var i=0; i < mountain_x.length; i++)
     {
-        //mountain outline
+        
+        //smaller mountain
+        fill(100,90,90);
+        triangle(mountain_x[i]+ 230, mountain_y,
+                mountain_x[i] + 460, mountain_y,
+                mountain_x[i] + (690 / 2), mountain_y - 220);
+        //smaller mountain shade
+        fill(50,50,60);
+        triangle(mountain_x[i]+ 230, mountain_y,
+                mountain_x[i] + 300, mountain_y,
+                mountain_x[i] + (690 / 2), mountain_y - 220);
+        //smaller mountain shade
+        fill(240);
+        stroke(240);
+        triangle(mountain_x[i]+ 335, mountain_y - 170,
+                mountain_x[i] + 370, mountain_y - 170,
+                mountain_x[i] + (690 / 2), mountain_y - 220);
+
+        fill(210);
+        stroke(210);
+        triangle(mountain_x[i]+ 335, mountain_y - 170,
+                mountain_x[i] + 323, mountain_y - 180,
+                mountain_x[i] + (690 / 2), mountain_y - 220);
+        noStroke();
+        //mountain 
         fill(100, 90, 90);
         triangle(mountain_x[i], mountain_y,
 		         mountain_x[i] + 330, mountain_y,
 		         mountain_x[i] + (330 / 2), mountain_y - 320);
+        
         //mountain shade
         fill(50,50,60);
         triangle(mountain_x[i], mountain_y,
@@ -760,9 +785,9 @@ function startGame()
     enemies = [];
     killedEnemies = [];
 
-    enemies.push(new Enemy(-27,floorPos_y - 10,165));
-    enemies.push(new Enemy(452,floorPos_y - 10,150));
-    enemies.push(new Enemy(2300,floorPos_y - 10,150));
+    enemies.push(new Enemy(-27,floorPos_y - 20,165));
+    enemies.push(new Enemy(452,floorPos_y - 20,150));
+    enemies.push(new Enemy(2300,floorPos_y - 20,150));
 
     platforms = []; 
 
@@ -771,7 +796,7 @@ function startGame()
     platforms.push(createPlatforms(-150, floorPos_y - 100, 100));
     platforms.push(createPlatforms(1750, floorPos_y - 100, 100));
     platforms.push(createPlatforms(1850, floorPos_y - 200, 100));
-    platforms.push(createPlatforms(1950, floorPos_y - 300, 100));
+    // platforms.push(createPlatforms(1950, floorPos_y - 300, 100));
     
     rainposx = [];
     rainposy = [];
@@ -815,7 +840,7 @@ function startGame()
     clouds_y = 100;
     cloudSpace = 1;
     
-    mountain_x = [480,1200,2200];
+    mountain_x = [480,1150,2200];
     mountain_y = floorPos_y;
     
     collectables = [{x_pos : -60  ,y_pos: 80, size : 50, isFound : false },
@@ -825,7 +850,7 @@ function startGame()
                     {x_pos : 400  ,y_pos: 90, size : 50, isFound : false},
                     {x_pos : 810 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false},
-                    {x_pos : 1680 ,y_pos: -190, size : 50, isFound : false}]
+                    {x_pos : 1680 ,y_pos: -180, size : 50, isFound : false}]
     
     canyons = [{x_pos: 150,width: 170},
               {x_pos: 320,width: 170},
