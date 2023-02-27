@@ -60,6 +60,8 @@ var enemies;
 var EnemyContact;
 var killedEnemies = [];
 
+var birds;
+
 function preload()
 {
     soundFormats('mp3','wav');
@@ -76,6 +78,9 @@ function preload()
 
     killEnemy = loadSound('Super Mario World.mp3')
     killEnemy.setVolume(0.4);
+
+    gameSound = loadSound('oblivion.mp3')
+    gameSound.setVolume(0.2)
 }
 
 function setup()
@@ -83,13 +88,13 @@ function setup()
     //bg : game background
     //go : game over
     //sg: start game
-    bg = loadImage('2109.w026.n002.828B.p1.828.jpg');
     go = loadImage('90s.jpg');
     sg = loadImage('enterr.jpg');
 	createCanvas(1024, 576);
 	floorPos_y = height * 3/4 + 1;
     lives = 3;
     startGame();
+    
 }
 
 function draw()
@@ -105,7 +110,8 @@ function draw()
         text("TO START THE GAME",290,height/2 + 50);
     }
     if (mode == 1){
-    background(bg);
+    
+    background(130, 200, 255);
     cameraPosX = gameChar_x - 600;
     
     //draw some green and brown ground
@@ -121,10 +127,28 @@ function draw()
     translate(-cameraPosX, 0);
     textSize(20);
     fill(255);
-    text("Your score is: "+game_score,cameraPosX + 10,30);
+    text(": "+game_score,cameraPosX + 50,37);
+    //coin next to score
+    stroke(0,255,255);
+    fill(192,192,192);
+    ellipse(cameraPosX + 30,
+            30,
+            50 - 25,
+            50 - 25);
     
+    fill(0,128,128);
+    ellipse(cameraPosX + 30,
+            30,
+            50 - 30,
+            50 - 30)
+    
+    fill(255,255,0);
+    ellipse(cameraPosX + 30,
+            30,
+            50 - 45,
+            50 - 45)
     //rain 
-    fill(255,255,255,80);
+    fill(255,255,255,100);
     noStroke();
     for (var i=0; i < numRain; i++)
     {
@@ -136,7 +160,19 @@ function draw()
             rainposy[i] = 100;
         }
     }
-    
+
+    // Draw birds
+    for (let i = 0; i < birds.length; i++) 
+    {
+        let bird = birds[i];
+        bird.x = drawBird(bird.x, bird.y, bird.size, bird.speed);
+    }
+    //Sun
+    fill(253, 184, 19);
+    noStroke();
+    ellipse(cameraPosX + 1000,50,150);
+    fill(253, 184, 19,80);
+    ellipse(cameraPosX + 1000,50,190);
     //Clouds
     drawClouds();
     
@@ -170,8 +206,7 @@ function draw()
             if(lives > 0)
             {
                 lives -=1;
-                game_score = 0
-                startGame();
+                gameChar_x = -758;
                 break;
             }   
         }
@@ -255,8 +290,9 @@ function draw()
     //game over screen
     if (lives == 0)
     {
+        gameSound.stop();
         background(go);
-        jumpSound.setVolume(0);
+        jumpSound.stop();
         return;
         
     }
@@ -272,6 +308,7 @@ function draw()
         noStroke();
         text("Level complete. Press space to continue.", cameraPosX + 460,310);
         jumpSound.setVolume(0);
+        gameSound.stop();
         return;
     }else{
         fill(255,0,0);
@@ -617,13 +654,13 @@ function drawCollectable(t_collectable)
     ellipse(t_collectable.x_pos + 340,
             t_collectable.y_pos + 300,
             t_collectable.size - 30,
-            t_collectable.size - 30)
+            t_collectable.size - 30);
     
     fill(255,255,0);
     ellipse(t_collectable.x_pos + 340,
             t_collectable.y_pos + 300,
             t_collectable.size - 45,
-            t_collectable.size - 45)
+            t_collectable.size - 45);
     }
 }
 
@@ -782,11 +819,14 @@ function checkPlayerDie()
 
 function startGame()
 {
+    gameSound.play();
+    gameSound.loop();   
+
     enemies = [];
     killedEnemies = [];
 
     enemies.push(new Enemy(-27,floorPos_y - 10,165));
-    enemies.push(new Enemy(452,floorPos_y - 10,150));
+    enemies.push(new Enemy(452,floorPos_y - 10,137));
     enemies.push(new Enemy(2300,floorPos_y - 10,150));
 
     platforms = []; 
@@ -850,6 +890,15 @@ function startGame()
                     {x_pos : 810 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1680 ,y_pos: -180, size : 50, isFound : false}]
+
+
+    birds = [{ x: -700, y: 100, size: 0.8, speed: 1.5 },
+             { x: -100, y: 70, size: 1, speed: 1.0 },
+             { x: 100, y: 230, size: 1, speed: 1.0 },
+             { x: 300, y: 350, size: 0.6, speed: 0.4 },
+             { x: 500, y: 170, size: 1, speed: 1.0 },
+             { x: 600, y: 300, size: 0.6, speed: 0.4 }];                
+    
     
     canyons = [{x_pos: 150,width: 170},
               {x_pos: 320,width: 170},
@@ -935,4 +984,51 @@ function Enemy(x,y, range)
         }
         
     }
+}
+
+function drawBird(x,y,size,speed)
+{
+    push();
+    translate(x,y);
+    scale(size);
+    // Draw bird body
+    fill(255, 200, 0);
+    ellipse(0, 0, 30, 20);
+
+    // Draw bird head
+    fill(255, 200, 0);
+    ellipse(20, -5, 15, 15);
+
+    // Draw bird beak
+    fill(255, 100, 0);
+    triangle(28, -5, 35, 0, 28, 5);
+
+    // Draw bird eye
+    fill(0);
+    ellipse(23, -7, 5, 5);
+
+    // Draw bird wings
+    fill(255, 100, 0);
+    beginShape();
+    vertex(-10, 0);
+    vertex(-5, -10);
+    vertex(5, -5);
+    vertex(5, 5);
+    vertex(-5, 10);
+    endShape(CLOSE);
+
+    // Draw bird tail
+    fill(255, 100, 0);
+    triangle(-12, -5, -15, -10, -15, 0);
+
+    pop();
+    // Update bird position based on speed
+    x += speed;
+    if (x > 3000) 
+    { 
+        // Reset bird position when it goes offscreen
+        x = -30;
+    }
+    return x;
+
 }
