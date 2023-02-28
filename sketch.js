@@ -70,13 +70,13 @@ function preload()
     jumpSound = loadSound('jump.wav');
     jumpSound.setVolume(0.1);
 
-    coinSound = loadSound('Super Mario Coin Sound Effect.mp3');
+    coinSound = loadSound('coinSound.mp3');
     coinSound.setVolume(0.1);
     
-    winSound = loadSound('Stage Win Super Mario - Sound Effect.mp3');
+    winSound = loadSound('win.mp3');
     winSound.setVolume(0.1);
 
-    killEnemy = loadSound('Super Mario World.mp3')
+    killEnemy = loadSound('jumpOnEnemy.mp3')
     killEnemy.setVolume(0.4);
 
     gameSound = loadSound('oblivion.mp3')
