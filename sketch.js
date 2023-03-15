@@ -894,7 +894,7 @@ function startGame()
 
     birds = [{ x: -700, y: 100, size: 0.8, speed: 1.5 },
              { x: -100, y: 70, size: 1, speed: 1.0 },
-             { x: 100, y: 230, size: 1, speed: 1.0 },
+             { x: 100, y: 230, size: 0.8, speed: 1.0 },
              { x: 300, y: 350, size: 0.6, speed: 0.4 }
             ];                
     
