@@ -77,10 +77,10 @@ function preload()
     winSound.setVolume(0.1);
 
     killEnemy = loadSound('jumpOnEnemy.mp3')
-    killEnemy.setVolume(0.4);
+    killEnemy.setVolume(0.1);
 
     gameSound = loadSound('oblivion.mp3')
-    gameSound.setVolume(0.2)
+    gameSound.setVolume(0.1)
 }
 
 function setup()
@@ -662,6 +662,7 @@ function drawCollectable(t_collectable)
             t_collectable.size - 45,
             t_collectable.size - 45);
     }
+
 }
 
 function checkCollectable(t_collectable)
