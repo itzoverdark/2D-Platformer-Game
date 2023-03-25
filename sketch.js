@@ -20,6 +20,7 @@ var gameChar_x;
 var gameChar_y;
 var floorPos_y;
 
+
 var tree_x;
 var tree_y;
 
@@ -27,8 +28,10 @@ var clouds_x;
 var clouds_y;
 var cloudsSpace;
 
+
 var mountain_x;
 var mountain_y
+
 
 var cameraPosX;
 
@@ -38,6 +41,7 @@ var canyons;
 var jumpSound;
 var coinSound;
 var winSound;
+
 
 var rainposx;
 var rainposy;
@@ -55,6 +59,7 @@ var enemies;
 
 var EnemyContact;
 var killedEnemies = [];
+var EnemiesKilled = 0;
 
 var birds;
 
@@ -73,10 +78,10 @@ function preload()
     winSound.setVolume(0.1);
 
     killEnemy = loadSound('jumpOnEnemy.mp3')
-    killEnemy.setVolume(0.1);
+    killEnemy.setVolume(0.4);
 
     gameSound = loadSound('oblivion.mp3')
-    gameSound.setVolume(0.1)
+    gameSound.setVolume(0.2)
 }
 
 function setup()
@@ -90,6 +95,7 @@ function setup()
 	floorPos_y = height * 3/4 + 1;
     lives = 3;
     startGame();
+    
 }
 
 function draw()
@@ -108,12 +114,15 @@ function draw()
     
     background(130, 200, 255);
     cameraPosX = gameChar_x - 600;
+    
     //draw some green and brown ground
 	noStroke();
 	fill(0, 170,0);
 	rect(0, floorPos_y, width, height - floorPos_y); 
     fill(155,118,83);
     rect(0, floorPos_y + 20, width, height - floorPos_y); 
+
+    
 
     push();
     translate(-cameraPosX, 0);
@@ -127,18 +136,20 @@ function draw()
             30,
             50 - 25,
             50 - 25);
+    
     fill(0,128,128);
     ellipse(cameraPosX + 30,
             30,
             50 - 30,
             50 - 30)
+    
     fill(255,255,0);
     ellipse(cameraPosX + 30,
             30,
             50 - 45,
-            50 - 45);
+            50 - 45)
     //rain 
-    fill(255,255,255,100);
+    fill(255,255,255,150);
     noStroke();
     for (var i=0; i < numRain; i++)
     {
@@ -150,6 +161,7 @@ function draw()
             rainposy[i] = 100;
         }
     }
+
     // Draw birds
     for (let i = 0; i < birds.length; i++) 
     {
@@ -162,13 +174,12 @@ function draw()
     ellipse(cameraPosX + 1000,50,150);
     fill(253, 184, 19,80);
     ellipse(cameraPosX + 1000,50,190);
-
     //Clouds
     drawClouds();
-
+    
     //Mountain
     drawMountains();
-
+    
     //Trees
     drawTrees();
 
@@ -180,10 +191,8 @@ function draw()
     {
         checkFlagpole();
     }
-
     // Check Player Die
     checkPlayerDie();
-
     //Enemies
     for (var i=0; i<enemies.length;i++)
     {
@@ -191,7 +200,7 @@ function draw()
         {
             enemies[i].draw();
         }
-
+        
         EnemyContact = enemies[i].checkContact(gameChar_x, gameChar_y);
         if (EnemyContact)
         {
@@ -211,10 +220,11 @@ function draw()
         }
     }
         
+
     for (var i = killedEnemies.length - 1; i >= 0; i--) {
         enemies.splice(killedEnemies[i], 1);
     }
-
+    
     // Reset the killedEnemies array
     killedEnemies = [];
 
@@ -266,6 +276,18 @@ function draw()
         }
     }
 
+    //Number of enemies killed
+
+    fill(123,63,0);
+    stroke(123,63,0)
+    rect(cameraPosX+20, 90, 50,40);
+    fill(255);
+    arc(cameraPosX +35, 90 +10,10, 10, 0, PI + QUARTER_PI, OPEN);
+    arc(cameraPosX+ 55, 90 + 10,10, 10, 150, PI , OPEN);
+    rect(cameraPosX+30, 90+20, 30,5);
+    noStroke();
+    text(""+EnemiesKilled,cameraPosX+90,120);
+
     for (var i=0; i<collectables.length; i++)
     {
         if (collectables[i].isFound == false)
@@ -275,6 +297,7 @@ function draw()
             //draw collectable
             drawCollectable(collectables[i]);
         }
+        
     }
     //game over screen
     if (lives == 0)
@@ -284,7 +307,6 @@ function draw()
         jumpSound.stop();
         return;
     }
-
     //draw trampoline
     fill(100);
     stroke(255);
@@ -299,10 +321,11 @@ function draw()
         jumpSound.setVolume(0);
         gameSound.stop();
         return;
+
     }else{
         fill(255,0,0);
         noStroke();
-        text("Collect all the coins to advance to the next level.", -980,110);
+        text("Collect all the coins in order to advance to the next level.", -1020,110);
         text("USE THE ARROW KEYS TO MOVE AND JUMP.", -980,50);
     }
 
@@ -406,10 +429,10 @@ function draw()
         rect(gameChar_x - 18,gameChar_y - 46, 7,20);
         fill(224, 172, 105);
         rect(gameChar_x + 10,gameChar_y - 46, 7,20);
-
 	}
     
     pop();
+
 	///////////INTERACTION CODE//////////
 	//Put conditional statements to move the game character below here
     
@@ -418,6 +441,7 @@ function draw()
     {
         gameChar_x -= 4;
     }
+    
     //Walk right
     if (isRight && (gameChar_y <= floorPos_y) || ((gameChar_y <= floorPos_y) && isRight))
     {
@@ -428,6 +452,7 @@ function draw()
     {
         gameChar_y += 10;
     }
+    
     //Return to the floor
     
     if (gameChar_y < floorPos_y)
@@ -452,6 +477,7 @@ function draw()
     else{
         isFalling = false;
     }
+    
 }
 }
 
@@ -490,6 +516,7 @@ function keyPressed()
                 flagpole.isReached = false;
                 lives = 3;
                 game_score = 0;
+                EnemiesKilled = 0;
                 startGame();    
             }
         }
@@ -523,6 +550,7 @@ function keyReleased()
         isLeft = false;
     }
 }
+
 
 function drawClouds()
 {
@@ -659,6 +687,7 @@ function checkCollectable(t_collectable)
         }
 }
 
+
 function drawCanyon(t_canyon)
 {
     fill(58,50,50);
@@ -752,6 +781,7 @@ function renderFlagpole()
     pop();
 }
 
+
 function checkFlagpole()
 {
     var d = abs(gameChar_x - flagpole.x_pos);
@@ -795,8 +825,10 @@ function checkPlayerDie()
             gameChar_x = 1660;
             gameChar_y = floorPos_y;
         }
+        
     }
 }
+
 
 function startGame()
 {
@@ -806,9 +838,10 @@ function startGame()
     enemies = [];
     killedEnemies = [];
 
-    enemies.push(new Enemy(-27,floorPos_y - 10,165));
-    enemies.push(new Enemy(452,floorPos_y - 10,137));
-    enemies.push(new Enemy(2300,floorPos_y - 10,150));
+    enemies.push(new Enemy(-33,floorPos_y - 37,130));
+    enemies.push(new Enemy(440,floorPos_y - 37,116));
+    enemies.push(new Enemy(2300,floorPos_y - 37,150));
+    enemies.push(new Enemy(-900,floorPos_y - 37,200));
 
     platforms = []; 
 
@@ -838,7 +871,7 @@ function startGame()
     
     winSound.setVolume(0);
     jumpSound.setVolume(0.1);
-    gameChar_x = -758;
+    gameChar_x = -1200;
 	gameChar_y = floorPos_y;
     
     flagpole =
@@ -853,14 +886,14 @@ function startGame()
         width: 130
     };
     
-    tree_x = [80,470,1650,1100];
+    tree_x = [-800,80,470,1650,1100];
     tree_y = floorPos_y;
     
     clouds_x = [-250,200,600,1000,1700]
     clouds_y = 100;
     cloudSpace = 1;
     
-    mountain_x = [480,1150,2200];
+    mountain_x = [-1400,480,1150,2200];
     mountain_y = floorPos_y;
     
     collectables = [{x_pos : -60  ,y_pos: 80, size : 50, isFound : false },
@@ -872,11 +905,13 @@ function startGame()
                     {x_pos : 1400 ,y_pos: 100, size : 50, isFound : false},
                     {x_pos : 1680 ,y_pos: -180, size : 50, isFound : false}]
 
+
     birds = [{ x: -700, y: 100, size: 0.8, speed: 1.5 },
              { x: -100, y: 70, size: 1, speed: 1.0 },
-             { x: 100, y: 230, size: 0.8, speed: 1.0 },
+             { x: 100, y: 230, size: 1, speed: 1.0 },
              { x: 300, y: 350, size: 0.6, speed: 0.4 }
             ];                
+    
     
     canyons = [{x_pos: 150,width: 170},
               {x_pos: 320,width: 170},
@@ -885,7 +920,8 @@ function startGame()
               {x_pos: 1150,width: 500},
               {x_pos: 1750,width: 500},
               {x_pos: -500,width:500},
-              {x_pos: 2560,width:170}]
+              {x_pos: 2560,width:170},
+              {x_pos: -1030,width:170}]
 }
 
 function createPlatforms(x,y,length)
@@ -943,20 +979,28 @@ function Enemy(x,y, range)
         this.update();
         if (this.visible)
         {
-            fill(255,0,0);
-            ellipse(this.currentX, this.y,40);   
+            fill(123,63,0);
+            rect(this.currentX, this.y, 50,40);
+            fill(255);
+            arc(this.currentX +15, this.y +10,10, 10, 0, PI + QUARTER_PI, OPEN);
+            arc(this.currentX+ 35, this.y + 10,10, 10, 150, PI , OPEN);
+            rect(this.currentX+10, this.y+20, 30,5);
         }
         
     },
     this.checkContact = function(gc_x,gc_y)
     {
-        var d = dist(gc_x, gc_y,this.currentX, this.y)
-        if (d < 24 && gameChar_y < this.y)
+        if (gc_x > this.currentX && gc_x <= this.currentX+57)
         {
-            this.visible = false;
-            this.isAlive = false;
+            let d = this.y - gc_y;
+            if (d >= 0 && d < 20)
+            {
+                this.visible = false;
+                this.isAlive = false;
+                EnemiesKilled += 1;
+            }
         }
-        if (d < 20 && gameChar_y > this.y)
+        if ((gc_x >= this.currentX && gc_x <= this.currentX+57) && gc_y - 10 > this.y)
         {
             return true;
         }
@@ -1007,4 +1051,5 @@ function drawBird(x,y,size,speed)
         x = -30;
     }
     return x;
+
 }
