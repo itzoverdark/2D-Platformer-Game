@@ -426,7 +426,7 @@ function draw()
     //Go down the canyan
     if (isPlummeting)
     {
-        gameChar_y += 5;
+        gameChar_y += 10;
     }
     //Return to the floor
     
