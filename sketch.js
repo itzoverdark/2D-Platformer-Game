@@ -327,8 +327,6 @@ function draw()
         noStroke();
         text("Collect all the coins in order to advance to the next level.", -1620,110);
         text("USE THE ARROW KEYS TO MOVE AND JUMP.", -1580,50);
-        text("Collect all the coins in order to advance to the next level.", -1020,110);
-        text("USE THE ARROW KEYS TO MOVE AND JUMP.", -980,50);
     }
 
     //the game character
