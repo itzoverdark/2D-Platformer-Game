@@ -207,7 +207,7 @@ function draw()
             if(lives > 0)
             {
                 lives -=1;
-                gameChar_x = -758;
+                gameChar_x = -1200;
                 break;
             }   
         }
@@ -325,6 +325,8 @@ function draw()
     }else{
         fill(255,0,0);
         noStroke();
+        text("Collect all the coins in order to advance to the next level.", -1620,110);
+        text("USE THE ARROW KEYS TO MOVE AND JUMP.", -1580,50);
         text("Collect all the coins in order to advance to the next level.", -1020,110);
         text("USE THE ARROW KEYS TO MOVE AND JUMP.", -980,50);
     }
@@ -437,13 +439,13 @@ function draw()
 	//Put conditional statements to move the game character below here
     
     //Walk left
-    if (isLeft && (gameChar_y <= floorPos_y) || ((gameChar_y <= floorPos_y) && isLeft))
+    if (isLeft && (gameChar_y <= floorPos_y))
     {
         gameChar_x -= 4;
     }
     
     //Walk right
-    if (isRight && (gameChar_y <= floorPos_y) || ((gameChar_y <= floorPos_y) && isRight))
+    if (isRight && (gameChar_y <= floorPos_y))
     {
         gameChar_x += 4;
     }
@@ -558,18 +560,18 @@ function drawClouds()
     {
         noStroke();
         fill(195,195,195);
-        ellipse(clouds_x[i] - 60 * cloudSpace,clouds_y,80 * cloudSpace,80 * cloudSpace);
-        ellipse(clouds_x[i] - 110 * cloudSpace,clouds_y,60 * cloudSpace,60 * cloudSpace);
-        ellipse(clouds_x[i],clouds_y,100 * cloudSpace,100 * cloudSpace);
-        ellipse(clouds_x[i] + 60 * cloudSpace,clouds_y,80 * cloudSpace,80 * cloudSpace);
-        ellipse(clouds_x[i] + 110 * cloudSpace,clouds_y,60 * cloudSpace,60 * cloudSpace);
+        ellipse(clouds_x[i].x_position - 60 * cloudSpace,clouds_y,80 * cloudSpace,80 * cloudSpace);
+        ellipse(clouds_x[i].x_position - 110 * cloudSpace,clouds_y,60 * cloudSpace,60 * cloudSpace);
+        ellipse(clouds_x[i].x_position,clouds_y,100 * cloudSpace,100 * cloudSpace);
+        ellipse(clouds_x[i].x_position + 60 * cloudSpace,clouds_y,80 * cloudSpace,80 * cloudSpace);
+        ellipse(clouds_x[i].x_position + 110 * cloudSpace,clouds_y,60 * cloudSpace,60 * cloudSpace);
 
         fill(210,210,210);
-        ellipse(clouds_x[i] - 60 * cloudSpace,clouds_y,70 * cloudSpace,70 * cloudSpace);
-        ellipse(clouds_x[i] - 110 * cloudSpace,clouds_y,50 * cloudSpace,50 * cloudSpace);
-        ellipse(clouds_x[i],clouds_y,100 * cloudSpace,90 * cloudSpace);
-        ellipse(clouds_x[i] + 60 * cloudSpace,clouds_y,70 * cloudSpace,70 * cloudSpace);
-        ellipse(clouds_x[i] + 110 * cloudSpace,clouds_y,50 * cloudSpace,50 * cloudSpace);
+        ellipse(clouds_x[i].x_position - 60 * cloudSpace,clouds_y,70 * cloudSpace,70 * cloudSpace);
+        ellipse(clouds_x[i].x_position - 110 * cloudSpace,clouds_y,50 * cloudSpace,50 * cloudSpace);
+        ellipse(clouds_x[i].x_position,clouds_y,100 * cloudSpace,90 * cloudSpace);
+        ellipse(clouds_x[i].x_position + 60 * cloudSpace,clouds_y,70 * cloudSpace,70 * cloudSpace);
+        ellipse(clouds_x[i].x_position + 110 * cloudSpace,clouds_y,50 * cloudSpace,50 * cloudSpace);
     };
 }
 
@@ -580,50 +582,50 @@ function drawMountains()
         
         //smaller mountain
         fill(100,90,90);
-        triangle(mountain_x[i]+ 230, mountain_y,
-                mountain_x[i] + 460, mountain_y,
-                mountain_x[i] + (690 / 2), mountain_y - 220);
+        triangle(mountain_x[i].moun_x+ 230, mountain_y,
+                mountain_x[i].moun_x + 460, mountain_y,
+                mountain_x[i].moun_x + (690 / 2), mountain_y - 220);
         //smaller mountain shade
         fill(50,50,60);
-        triangle(mountain_x[i]+ 230, mountain_y,
-                mountain_x[i] + 300, mountain_y,
-                mountain_x[i] + (690 / 2), mountain_y - 220);
+        triangle(mountain_x[i].moun_x+ 230, mountain_y,
+                mountain_x[i].moun_x + 300, mountain_y,
+                mountain_x[i].moun_x + (690 / 2), mountain_y - 220);
         //smaller mountain shade
         fill(240);
         stroke(240);
-        triangle(mountain_x[i]+ 335, mountain_y - 170,
-                mountain_x[i] + 370, mountain_y - 170,
-                mountain_x[i] + (690 / 2), mountain_y - 220);
+        triangle(mountain_x[i].moun_x+ 335, mountain_y - 170,
+                mountain_x[i].moun_x + 370, mountain_y - 170,
+                mountain_x[i].moun_x + (690 / 2), mountain_y - 220);
 
         fill(210);
         stroke(210);
-        triangle(mountain_x[i]+ 335, mountain_y - 170,
-                mountain_x[i] + 323, mountain_y - 180,
-                mountain_x[i] + (690 / 2), mountain_y - 220);
+        triangle(mountain_x[i].moun_x+ 335, mountain_y - 170,
+                mountain_x[i].moun_x + 323, mountain_y - 180,
+                mountain_x[i].moun_x + (690 / 2), mountain_y - 220);
         noStroke();
         //mountain 
         fill(100, 90, 90);
-        triangle(mountain_x[i], mountain_y,
-		         mountain_x[i] + 330, mountain_y,
-		         mountain_x[i] + (330 / 2), mountain_y - 320);
+        triangle(mountain_x[i].moun_x, mountain_y,
+		         mountain_x[i].moun_x + 330, mountain_y,
+		         mountain_x[i].moun_x + (330 / 2), mountain_y - 320);
         
         //mountain shade
         fill(50,50,60);
-        triangle(mountain_x[i], mountain_y,
-                mountain_x[i] + 100, mountain_y,
-                mountain_x[i] + (330 / 2), mountain_y - 320);
+        triangle(mountain_x[i].moun_x, mountain_y,
+                mountain_x[i].moun_x + 100, mountain_y,
+                mountain_x[i].moun_x + (330 / 2), mountain_y - 320);
         //mountain top
         fill(240);
         stroke(240);
-        triangle(mountain_x[i] + 149, mountain_y - 250,
-                mountain_x[i] + 202, mountain_y - 250,
-                mountain_x[i] + (330 / 2), mountain_y - 320);
+        triangle(mountain_x[i].moun_x + 149, mountain_y - 250,
+                mountain_x[i].moun_x + 202, mountain_y - 250,
+                mountain_x[i].moun_x + (330 / 2), mountain_y - 320);
         
         fill(210);
         stroke(210);
-        triangle(mountain_x[i] + 133, mountain_y - 260,
-                mountain_x[i] + 149, mountain_y - 250,
-                mountain_x[i] + (330 / 2), mountain_y - 320);
+        triangle(mountain_x[i].moun_x + 133, mountain_y - 260,
+                mountain_x[i].moun_x + 149, mountain_y - 250,
+                mountain_x[i].moun_x + (330 / 2), mountain_y - 320);
         noStroke();
     };
 }
@@ -634,18 +636,18 @@ function drawTrees()
     {
         stroke(130, 102, 68);
         fill(130, 102, 68);
-        rect(tree_x[i] - 25,tree_y - 160,50,160);
+        rect(tree_x[i].x_Pos - 25,tree_y - 160,50,160);
         fill(70, 60, 20);
         stroke(70, 60, 20);
-        triangle(tree_x[i]-25, tree_y,
-                 tree_x[i] + 25, tree_y,
-                 tree_x[i] - 25, tree_y - 70);
+        triangle(tree_x[i].x_Pos-25, tree_y,
+                 tree_x[i].x_Pos + 25, tree_y,
+                 tree_x[i].x_Pos - 25, tree_y - 70);
         fill(45, 90, 39);
         stroke(45, 90, 39);
-        ellipse(tree_x[i],tree_y - 170,150,150);
+        ellipse(tree_x[i].x_Pos,tree_y - 170,150,150);
         fill(65, 110, 59);
         stroke(65, 110, 59);
-        ellipse(tree_x[i],tree_y - 170,100,100);
+        ellipse(tree_x[i].x_Pos,tree_y - 170,100,100);
         noStroke();
         
     };
@@ -757,28 +759,107 @@ function checkCanyon(t_canyon)
 
 function renderFlagpole()
 {
-    push();
-    strokeWeight(5);
-    stroke(180);
-    line(flagpole.x_pos, floorPos_y, flagpole.x_pos, 0);
-    fill(50,gameChar_x - 1450,0);
-    noStroke();
-
     if (flagpole.isReached)
     {
-        rect(flagpole.x_pos, floorPos_y - 200, 50,50);
+        // Draw roof
+        noStroke();
+        fill(150, 50, 0);
+        triangle(2797, 115, 3200, 115, 2997, 20);
+
+        // Draw chimney
+        fill(170);
+        rect(3100, 35, 50, 120);
+
+        // Draw house
+        fill(200, 180, 150);
+        stroke(120);
+        strokeWeight(3);
+        rect(2800, 115, 400, 320);
+
+        // Draw bricks on house
+        noStroke();
+        fill(160, 140, 120);
+        for (let i = 0; i < 19;i++) {
+        for (let j = 0; j < 19; j++) {
+        rect(2810 + i * 20, 125 + j * 16, 18, 10);
+        }
+        }
+
+        // Draw windows
+        stroke(120);
+        strokeWeight(2);
+        fill(220);
+        rect(2870, 215, 70, 100);
+        rect(3040, 215, 70, 100);
+        stroke(0);
+        strokeWeight(1);
+        line(2870, 260, 2940, 260);
+        line(2909, 215, 2909, 315);
+        line(3040, 260, 3109, 260);
+        line(3075, 215, 3075, 315);
+
+        // Draw door with knob
+        noStroke();
+        fill(150, 75, 0);
+        rect(2950, 295, 80, 140);
+        fill(210, 105, 30);
+        rect(2970, 325, 40, 80);
+        fill(255);
+        ellipse(3010, 375, 5, 5);
+        fill(0);
+        ellipse(3010, 375, 2, 2);
     }
     else
     {
-        if (gameChar_x <= 2900)
-        {
-            rect(flagpole.x_pos, floorPos_y + gameChar_x - 3100, 50,50);
+        // Draw roof
+        noStroke();
+        fill(150, 50, 0);
+        triangle(2797, 115, 3200, 115, 2997, 20);
+
+        // Draw chimney
+        fill(170);
+        rect(3100, 35, 50, 120);
+
+        // Draw house
+        fill(200, 180, 150);
+        stroke(120);
+        strokeWeight(3);
+        rect(2800, 115, 400, 320);
+
+        // Draw bricks on house
+        noStroke();
+        fill(160, 140, 120);
+        for (let i = 0; i < 19;i++) {
+        for (let j = 0; j < 19; j++) {
+        rect(2810 + i * 20, 125 + j * 16, 18, 10);
         }
-        else{
-            rect(flagpole.x_pos, floorPos_y - 200, 50,50);
         }
+        // Draw windows
+        stroke(120);
+        strokeWeight(2);
+        fill(220);
+        rect(2870, 215, 70, 100);
+        rect(3040, 215, 70, 100);
+        stroke(0);
+        strokeWeight(1);
+        line(2870, 260, 2940, 260);
+        line(2909, 215, 2909, 315);
+        line(3040, 260, 3109, 260);
+        line(3075, 215, 3075, 315);
+
+        // Draw door with knob
+        noStroke();
+        fill(150, 75, 0);
+        rect(2950, 295, 40, 140);
+        fill(0);
+        rect(2990, 295, 40, 140);
+        fill(210, 105, 30);
+        rect(2970, 325, 20, 80);
+        fill(255);
+        ellipse(2980, 375, 5, 5);
+        fill(0);
+        ellipse(29_0, 375, 2, 2);
     }
-    pop();
 }
 
 
@@ -864,6 +945,7 @@ function startGame()
         rainposx.push(random(460,730));
         rainposx.push(random(860,1120));
         rainposx.push(random(1570,1830));
+        rainposx.push(random(-860,-1120));
         rainposy.push(random(0,height));
         rainDirectionx.push(random(100,200));
         rainDirectiony.push(random(0,height));
@@ -876,7 +958,7 @@ function startGame()
     
     flagpole =
     {
-        x_pos: 2900,
+        x_pos: 2984,
         y_pos: 70,
         isReached: false
     };
@@ -886,14 +968,26 @@ function startGame()
         width: 130
     };
     
-    tree_x = [-800,80,470,1650,1100];
+    tree_x = [{x_Pos:-800},
+              {x_Pos:80},
+              {x_Pos:470},
+              {x_Pos:1650},
+              {x_Pos:1100}]
     tree_y = floorPos_y;
-    
-    clouds_x = [-250,200,600,1000,1700]
+        
+    clouds_x = [{x_position:-250},
+                {x_position:200},
+                {x_position:600},
+                {x_position:1000},
+                {x_position:-1000},
+                {x_position:1696}]
     clouds_y = 100;
     cloudSpace = 1;
     
-    mountain_x = [-1400,480,1150,2200];
+    mountain_x = [{moun_x:-1400},
+                  {moun_x:480},
+                  {moun_x: 1150},
+                  {moun_x: 2200}]
     mountain_y = floorPos_y;
     
     collectables = [{x_pos : -60  ,y_pos: 80, size : 50, isFound : false },
