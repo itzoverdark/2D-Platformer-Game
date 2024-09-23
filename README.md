@@ -1,6 +1,6 @@
 ## 2D Adventure Game
 
-![2D Platformer Game GIF](https://raw.githubusercontent.com/itzoverdark/portfolio/refs/heads/main/2D-Platform-Game.gif?token=GHSAT0AAAAAACVUS45XYTUKR4WKPCOFQ2MWZXQVPZA)
+![2D Platformer Game GIF](https://raw.githubusercontent.com/itzoverdark/portfolio/refs/heads/main/2D-Platform-Game.gif)
 
 Welcome to the 2D Adventure Game repository! This project is a simple yet engaging 2D game built using JavaScript and the p5.js library. The game includes sound effects and background music to enhance the player experience.
 
